@@ -1,0 +1,68 @@
+DROP DATABASE IF EXISTS registrosInatel;
+CREATE DATABASE registrosInatel;
+USE registrosInatel;
+
+DROP USER IF EXISTS 'Marcelo';
+CREATE USER 'Marcelo' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON artesanato.* TO 'Marcelo';
+
+
+#só pra testar mesmo
+CREATE TABLE IF NOT EXISTS user(
+	nome VARCHAR(45) NOT NULL PRIMARY KEY,
+    cpf VARCHAR(14) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Professor(
+cpf VARCHAR(14) NOT NULL PRIMARY KEY,
+nome VARCHAR(45) NOT NULL,
+NumDiciplinas INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Materia(
+sigla VARCHAR(14) NOT NULL PRIMARY KEY,
+peso INT NOT NULL # Quantos pesos a matéria vale no coeficiente final
+);
+
+CREATE TABLE IF NOT EXISTS Turma(
+idTurma VARCHAR(14) NOT NULL,
+sigla VARCHAR(14) NOT NULL,
+cpf VARCHAR(14) NOT NULL,
+numAlunos INT NOT NULL,
+predio INT NOT NULL,
+numSala INT NOT NULL,
+PRIMARY KEY (idTurma, sigla),
+FOREIGN KEY (sigla) REFERENCES Materia(sigla) ON DELETE NO ACTION
+ON UPDATE CASCADE,
+FOREIGN KEY (cpf) REFERENCES Professor(cpf) ON DELETE NO ACTION
+ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS HorarioAulas(
+idTurma VARCHAR(5) NOT NULL,
+sigla VARCHAR(5) NOT NULL,
+horarios VARCHAR(5) NOT NULL,
+PRIMARY KEY (idTurma, sigla),
+CONSTRAINT idTurma_fk
+FOREIGN KEY (idTurma) REFERENCES Turma(idTurma) ON DELETE NO ACTION
+ON UPDATE CASCADE,
+CONSTRAINT sigla_fk
+FOREIGN KEY (sigla) REFERENCES Materia(sigla) ON DELETE NO ACTION
+ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Habilidades(
+cpf VARCHAR(14) NOT NULL PRIMARY KEY,
+Habilidade VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Aluno(
+matricula VARCHAR(14) NOT NULL PRIMARY KEY,
+nome VARCHAR(45) NOT NULL,
+dataNascimento DATE NOT NULL
+);
+
+INSERT INTO Professor (cpf, nome, NumDiciplinas) VALUES ('492.441.760-25','Luciano',5);
+
+Select * from user;
+Select * from Professor;
