@@ -63,7 +63,7 @@ public class HabilidadesDAO extends ConnectionDAO{
     //DELETE
     public boolean deleteProfessor(String cpf) {
         connectToDB();
-        String sql = "DELETE FROM Professor where cpf=?";
+        String sql = "DELETE FROM Habilidades where cpf=?";
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, cpf);
@@ -103,7 +103,9 @@ public class HabilidadesDAO extends ConnectionDAO{
                     {
                         CPF = cpf;
                     }
-                }catch (NullPointerException e){}
+                }catch (NullPointerException e){
+                    System.out.println("Professor não cadastrado");
+                }
             }
 
             while (rs.next()) {

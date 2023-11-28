@@ -146,13 +146,13 @@ public class TurmaDAO extends ConnectionDAO{
                     System.out.println("A a turma " + turmaAUX.getMateria().getSigla() + " - " + turmaAUX.getIdTurma() + " possui as seguintes informações:");
                     System.out.println("Número de alunos: " + turmaAUX.getNumAlunos());
                     System.out.println("É ministrada pelo(a) professor: " + turmaAUX.getProfessor().getNome());
-                    System.out.println("E as aulas dessa turma acontecer na sala " + turmaAUX.getSala() + " do prédio " + turmaAUX.getPredio());
+                    System.out.println("E as aulas dessa turma acontecem na sala " + turmaAUX.getSala() + " do prédio " + turmaAUX.getPredio());
                     System.out.println("--------------------------------");
 
                     turmas.add(turmaAUX);
                 }catch (IndexOutOfBoundsException e) {
                     System.out.println("A matéria ou o professor dessa turma não estão cadastrados no banco de dados\n" +
-                            "Tente cadastralos e tentar novamente");
+                            "Tente cadastralos e tente novamente");
                 }
             }
             sucesso = true;

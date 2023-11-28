@@ -60,9 +60,11 @@ public class Professor implements Cabelo, Derivar, Integrar, Codar {
             try {
                 if (hab.equals("Careca")) {
                     System.out.println("O professor " + this.getNome() + " não possuí mais nem um fio de cabelo");
+                    break;
                 } else if (hab.equals("Calvo")) {
                     System.out.println("O professor " + this.getNome() + " ainda possui um pouco de cabelo mas jaja fica sem");
-                } else {
+                    break;
+                } else if(hab.equals(null)){
                     System.out.println("O professor " + this.getNome() + " tem bastante cabelo ainda");
                 }
             }catch(NullPointerException e){}
@@ -76,8 +78,10 @@ public class Professor implements Cabelo, Derivar, Integrar, Codar {
         for (String hab : this.habilidades) {
             if (hab.equals("Coder")) {
                 System.out.println("O professor " + this.getNome() + " sabe codar");
+                break;
             } else
                 System.out.println("O professor " + this.getNome() + " não sabe codar e odeio quem coda");
+            break;
         }
     }
 
@@ -87,6 +91,7 @@ public class Professor implements Cabelo, Derivar, Integrar, Codar {
         for (String hab : this.habilidades) {
             if (hab.equals("Derivar")) {
                 System.out.println("O professor " + this.getNome() + " sabe derivar");
+                break;
             } else
                 System.out.println("O professor " + this.getNome() + " nunca mais derivou depois que formou");
         }
@@ -100,8 +105,10 @@ public class Professor implements Cabelo, Derivar, Integrar, Codar {
         for (String hab : this.habilidades) {
             if (hab.equals("Integrar")) {
                 System.out.println("O professor " + this.getNome() + " sabe Integrar");
+                break;
             } else
                 System.out.println("O professor " + this.getNome() + " nunca mais Integrou depois que formou");
+
         }
     }
 }

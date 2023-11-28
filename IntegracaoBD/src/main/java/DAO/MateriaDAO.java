@@ -1,9 +1,12 @@
 package DAO;
 
 import Model.Materia;
+import Model.Professor;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MateriaDAO extends ConnectionDAO{
 
@@ -15,11 +18,12 @@ public class MateriaDAO extends ConnectionDAO{
 
         connectToDB();
 
-        String sql = "INSERT INTO Materia (sigla,peso) values(?,?)";
+        String sql = "INSERT INTO Materia (sigla,peso,cordenador) values(?,?,?)";
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, Materia.getSigla());
             pst.setInt(2, Materia.getPeso());
+            pst.setString(3,Materia.getCordenador());
             pst.execute();
             sucesso = true;
         } catch (SQLException exc) {
@@ -98,13 +102,27 @@ public class MateriaDAO extends ConnectionDAO{
 
             while (rs.next()) {
 
-                Materia MateriaAux = new Materia(rs.getString("sigla"),rs.getInt("peso"));
+                Materia MateriaAux = new Materia(rs.getString("sigla"),rs.getInt("peso"),rs.getString("cordenador"));
 
-                System.out.println("Sígla da matéria = " + MateriaAux.getSigla());
-                System.out.println("Peso = " + MateriaAux.getPeso());
-                System.out.println("--------------------------------");
+                ProfessorDAO professorDAO = new ProfessorDAO();
+                ArrayList<Professor> prof = new ArrayList<>();
+                prof = professorDAO.selectNnPrintaProfessor();
+                Professor cordenador = null;
+                for (Professor p: prof) {
+                    try{
+                        if(p.getCpf().equals(rs.getString("cordenador")))
+                            cordenador = p;
+                    }catch (Exception e){}
+                }
 
-                Materias.add(MateriaAux);
+                try {
+                    System.out.println("Sígla da matéria = " + MateriaAux.getSigla());
+                    System.out.println("Peso = " + MateriaAux.getPeso());
+                    System.out.println("Cordenador = " + cordenador.getNome());
+                    System.out.println("--------------------------------");
+
+                    Materias.add(MateriaAux);
+                }catch (NullPointerException n){}
             }
             sucesso = true;
         } catch (SQLException e) {
