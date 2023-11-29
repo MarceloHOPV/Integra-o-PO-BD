@@ -12,11 +12,11 @@ import java.util.List;
 public class Professor implements Cabelo, Derivar, Integrar, Codar {
 
     HabilidadesDAO habilidadesDAO = new HabilidadesDAO();
-    private String cpf;
+    private final String cpf;
     private String Nome;
     private int numDiciplinas;
     private String Habilidade;
-    List<String> habilidades = new ArrayList<>();
+    List<Habilidades> habilidades = new ArrayList<>();
 
     public Professor(String cpf, String nome, int numDiciplinas) {
         this.cpf = cpf;
@@ -55,60 +55,81 @@ public class Professor implements Cabelo, Derivar, Integrar, Codar {
 
     @Override
     public void qtdCabelo() {
-        habilidades = habilidadesDAO.selectNnPrintaProfessor(this.cpf);
-        for (String hab : this.habilidades) {
-            try {
-                if (hab.equals("Careca")) {
-                    System.out.println("O professor " + this.getNome() + " não possuí mais nem um fio de cabelo");
-                    break;
-                } else if (hab.equals("Calvo")) {
-                    System.out.println("O professor " + this.getNome() + " ainda possui um pouco de cabelo mas jaja fica sem");
-                    break;
-                } else if(hab.equals(null)){
-                    System.out.println("O professor " + this.getNome() + " tem bastante cabelo ainda");
+        Habilidades habilidade = habilidadesDAO.returnHabilidadeDAO(this.cpf);
+        String Cabelo = "";
+                try {
+                    if (habilidade.getHabilidades().equals("Careca")) {
+                        Cabelo = "Careca";
+                    } else if (habilidade.getHabilidades().equals("Calvo")) {
+                        Cabelo = "Calvo";
+                    } else {
+                       Cabelo = "nda";
+                    }
+
+                } catch (NullPointerException e) {
                 }
-            }catch(NullPointerException e){}
-        }
+        if (Cabelo.equals("Careca")) {
+            System.out.println("O professor " + this.getNome() + " não possuí mais nem um fio de cabelo");
+        } else if (Cabelo.equals("Calvo")) {
+            System.out.println("O professor " + this.getNome() + " ainda possui um pouco de cabelo mas jaja fica sem");
+        } else if(Cabelo.equals("nda")){
+            System.out.println("O professor " + this.getNome() + " tem bastante cabelo ainda");
+        }else
+            System.out.println("Professor não possui habilidades");
     }
 
 
     @Override
     public void podeCodar() {
-        habilidades = habilidadesDAO.selectNnPrintaProfessor(this.cpf);
-        for (String hab : this.habilidades) {
-            if (hab.equals("Coder")) {
-                System.out.println("O professor " + this.getNome() + " sabe codar");
-                break;
-            } else
-                System.out.println("O professor " + this.getNome() + " não sabe codar e odeio quem coda");
-            break;
-        }
+        Habilidades habilidade = habilidadesDAO.returnHabilidadeDAO(this.cpf);
+        String codar = "";
+                if (habilidade.getHabilidades().equals("Codar")) {
+                    codar = "Codar";
+                } else {
+                    codar = "nda";
+            }
+        if(codar.equals("Codar")) {
+            System.out.println("O professor " + this.getNome() + " sabe codar");
+        } else if(codar.equals("nda")) {
+            System.out.println("O professor " + this.getNome() + " não sabe codar e odeio quem coda");
+        }else
+            System.out.println("Professor não possui habilidades");
     }
 
     @Override
     public void consegueDerivar() {
-        habilidades = habilidadesDAO.selectNnPrintaProfessor(this.cpf);
-        for (String hab : this.habilidades) {
-            if (hab.equals("Derivar")) {
-                System.out.println("O professor " + this.getNome() + " sabe derivar");
-                break;
-            } else
-                System.out.println("O professor " + this.getNome() + " nunca mais derivou depois que formou");
-        }
+        Habilidades habilidade = habilidadesDAO.returnHabilidadeDAO(this.cpf);
+        String derivar = "";
+                if (habilidade.getHabilidades().equals("Derivar")) {
+                    derivar = "Derivar";
+                } else
+                    derivar = "nda";
+
+        if (derivar.equals("Derivar")) {
+            System.out.println("O professor " + this.getNome() + " sabe derivar");
+        } else if(derivar.equals("nda"))
+            System.out.println("O professor " + this.getNome() + " nunca mais derivou depois que formou");
+        else
+            System.out.println("Professor não possui habilidades");
 
     }
 
     @Override
     public void consegueIntegrar() {
 
-        habilidades = habilidadesDAO.selectNnPrintaProfessor(this.cpf);
-        for (String hab : this.habilidades) {
-            if (hab.equals("Integrar")) {
-                System.out.println("O professor " + this.getNome() + " sabe Integrar");
-                break;
-            } else
-                System.out.println("O professor " + this.getNome() + " nunca mais Integrou depois que formou");
+        Habilidades habilidade = habilidadesDAO.returnHabilidadeDAO(this.cpf);
+        String integrar = "";
 
-        }
+                if (habilidade.getHabilidades().equals("Integrar")) {
+                    integrar = "Integrar";
+                } else
+                    integrar = "nda";
+
+        if (integrar.equals("Integrar")) {
+            System.out.println("O professor " + this.getNome() + " sabe Integrar");
+        } else if(integrar.equals("nda"))
+            System.out.println("O professor " + this.getNome() + " nunca mais Integrou depois que formou");
+        else
+            System.out.println("Professor não possui habilidades");
     }
 }

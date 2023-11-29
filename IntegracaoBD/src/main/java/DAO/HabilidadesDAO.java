@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Habilidades;
 import Model.Professor;
 
 import java.sql.SQLException;
@@ -85,13 +86,14 @@ public class HabilidadesDAO extends ConnectionDAO{
 
     //SELECT
 
-    public ArrayList<String> selectNnPrintaProfessor(String cpf) {
+    public Habilidades returnHabilidadeDAO(String cpf) {
         ProfessorDAO professorDAO = new ProfessorDAO();
-        ArrayList<Professor> Professores = new ArrayList<>();
-        ArrayList<String> Habilidades = new ArrayList<>();
+        ArrayList<Habilidades> Habilidades = new ArrayList<>();
+        Habilidades habilidade = null;
         String CPF = null;
         connectToDB();
         String sql = "SELECT * FROM Habilidades";
+
 
         try {
             st = con.createStatement();
@@ -110,9 +112,8 @@ public class HabilidadesDAO extends ConnectionDAO{
 
             while (rs.next()) {
                 try {
-                    if (rs.getString("cpf").equals(CPF)) ;
-
-                    Habilidades.add(rs.getString("Habilidade"));
+                    if (rs.getString("cpf").equals(CPF))
+                        habilidade = new Habilidades(CPF,rs.getString("Habilidade"));
                 }catch (NullPointerException e){}
 
             }
@@ -128,8 +129,9 @@ public class HabilidadesDAO extends ConnectionDAO{
                 System.out.println("Erro: " + e.getMessage());
             }
         }
-        return Habilidades;
+        return habilidade;
     }
+
 
 }
 

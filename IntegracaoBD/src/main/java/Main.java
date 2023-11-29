@@ -71,7 +71,7 @@ public class Main {
                             "-----------------------------------------------\n" +
                             "10 Para adcionar alguma matéria a grade curricular\n" +
                             "11 Para remover alhuma matéria da grade curricular\n" +
-                            "12 Para mudar alguma informação sobre algum aluno\n" +
+                            "12 Para mudar alguma informação sobre algum matéria\n" +
                             "13 Para a lista das matérias da facudade\n" +
                             "------------------------------------------------\n" +
                             "14 Para Adicionar Alguma turma\n" +
